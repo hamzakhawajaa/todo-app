@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { useState } from "react";
+import { useCallback } from "react";
+const App = () => {
+  const [newTodo, setNewTodo] = useState("");
+  const onNewTodoChange = useCallback((event) => {
+    console.log(event.target.value);
+    setNewTodo(event.target.value);
+  }, []);
 
-function App() {
+  function formSubmitted(event) {
+    event.preventDefault();
+    console.log("Form submitted!");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={formSubmitted}>
+        <label htmlFor="newTodo"> Enter a Todo </label>
+        <input
+          id="newTodo"
+          name="newTodo"
+          value={newTodo}
+          onChange={onNewTodoChange}
+        />
+        <button> Add Todo </button>
+      </form>
     </div>
   );
-}
+};
 
 export default App;
